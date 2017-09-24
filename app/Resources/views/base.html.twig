@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <!--IE Compatibility modes-->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!--Mobile first-->
+        <meta name="viewport" content="width=device-width, initial-scale=1">        
+        <title>{% block title %}Invoice Form{% endblock %}</title>
+        {% block stylesheets %}
+            <!-- Bootstrap -->
+            <link rel="stylesheet" href="{{asset('/lib/bootstrap/css/bootstrap.css')}}">        
+            <!-- Font Awesome -->
+            <link rel="stylesheet" href="{{asset('/lib/font-awesome/css/font-awesome.css')}}">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+            <!-- Metis core stylesheet -->
+            <link rel="stylesheet" href="{{asset('/css/main.css')}}">
+
+            <!-- metisMenu stylesheet -->
+            <link rel="stylesheet" href="{{asset('/lib/metismenu/metisMenu.css')}}">
+
+            <!-- animate.css stylesheet -->
+            <link rel="stylesheet" href="{{asset('/lib/animate.css/animate.css')}}">
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        {% block body %}
+            <div class="text-muted text-center">
+                <h3>Menu aplikacji InvoiceForm:</h3>
+                <a class="btn btn-default btn-md" href="{{ path('invoice_new')}}"> wystaw fakturę</a> 
+                <br>
+                <a class="btn btn-default btn-md" href="{{ path('invoice_index')}}"> lista faktur</a>
+            </div>
+        {% endblock %}
+        {% block invoice %}
+            {% endblock invoice %}
+
+
+
+        {% block javascripts %}
+            <!--jQuery -->
+            <script src="{{ asset('lib/jquery/jquery.js') }}"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/dataTables.bootstrap.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.26.6/js/jquery.tablesorter.min.js"></script>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>        
+            <!--Bootstrap -->
+            <script src="{{ asset('lib/bootstrap/js/bootstrap.js') }}" ></script>           
+            <!-- MetisMenu -->
+            <script src="{{ asset('lib/metismenu/metisMenu.js') }}" ></script>
+            <!-- Screenfull -->
+            <script src="{{ asset('lib/screenfull/screenfull.js') }}"></script>
+            <!-- Metis core scripts -->
+            <script src="{{ asset('js/core.js') }}"></script>
+            <!-- Metis demo scripts -->                       
+            <script src="{{ asset('js/app.js') }}"></script>
+            <script src="{{ asset('lib/jquery-validation/jquery.validate.js') }}"></script>
+
+            <script src="{{ asset('js/style-switcher.js') }}"></script> 
+        {% endblock %}
+    </body>
+</html>

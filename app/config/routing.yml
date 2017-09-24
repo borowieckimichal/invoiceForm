@@ -1,0 +1,6 @@
+invoice_form:
+    resource: "@invoiceFormBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+

@@ -1,0 +1,4 @@
+services:
+#    invoice_form.example:
+#        class: invoiceFormBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
