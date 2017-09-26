@@ -1,16 +1,24 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Customer creation</h1>
+    <div class="tab-pane active col-md-3">
+        <h3 class="text-muted text-center">Dodawanie kontrahenta</h3>
+        {{ form_start(form) }}
+        <div>
+            <p class="text-muted text-center">
+                {{ form_label(form.name, 'Podaj nazwę kontrahenta:', { 'label_attr': {'class': 'control-label'}}) }}
+                {{ form_widget(form.name,{ 'attr': {'class': 'form-control top'}}) }}            
+            </p>
+        </div>
+        <div>   
+            <p class="text-muted text-center">
+                {{ form_label(form.nip, 'Podaj NIP:', { 'label_attr': {'class': 'control-label'}}) }}
+                {{ form_widget(form.nip,{ 'attr': {'class': 'form-control top'}}) }} 
+            </p>
+        </div>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('customer_index') }}">Back to the list</a>
-        </li>
-    </ul>
+        <input type="submit" class="btn btn-success btn-sm" value="Dodaj kontrahenta" />
+        <a class="btn btn-default btn-sm" href="{{ path('customer_index') }}">Powrót do listy kontrahentów</a>
+        {{ form_end(form) }}
+    </div>
 {% endblock %}

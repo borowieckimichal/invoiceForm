@@ -3,10 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/michal/Workspace/invoiceForm/invoiceForm/web/js/counting.js</file>
-            <file>file:/home/michal/Workspace/invoiceForm/invoiceForm/app/Resources/views/base.html.twig</file>
-            <file>file:/home/michal/Workspace/invoiceForm/invoiceForm/src/invoiceFormBundle/Form/PositionsType.php</file>
+            <file>file:/home/michal/Workspace/invoiceForm/invoiceForm/src/invoiceFormBundle/Controller/CustomerController.php</file>
+            <file>file:/home/michal/Workspace/invoiceForm/invoiceForm/src/invoiceFormBundle/Controller/InvoiceController.php</file>
+            <file>file:/home/michal/Workspace/invoiceForm/invoiceForm/app/Resources/views/customer/new.html.twig</file>
+            <file>file:/home/michal/Workspace/invoiceForm/invoiceForm/src/invoiceFormBundle/Form/InvoiceType.php</file>
+            <file>file:/home/michal/Workspace/invoiceForm/invoiceForm/app/Resources/views/customer/index.html.twig</file>
             <file>file:/home/michal/Workspace/invoiceForm/invoiceForm/app/Resources/views/invoice/new.html.twig</file>
+            <file>file:/home/michal/Workspace/invoiceForm/invoiceForm/src/invoiceFormBundle/Entity/Customer.php</file>
         </group>
     </open-files>
 </project-private>

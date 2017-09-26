@@ -8,29 +8,35 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use invoiceFormBundle\Form\PositionsType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;  
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
-class InvoiceType extends AbstractType
-{
+class InvoiceType extends AbstractType {
+
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('number')->add('issueDate', DateType::class, ['widget' => 'single_text', 'attr' => ['style' => 'width : 160px; float : right']])
-                ->add('saleDate', DateType::class, ['widget' => 'single_text','attr' => ['style' => 'width : 160px; float : right']])
+                ->add('saleDate', DateType::class, ['widget' => 'single_text', 'attr' => ['style' => 'width : 160px; float : right']])
                 ->add('dueDate', DateType::class, ['widget' => 'single_text', 'attr' => ['style' => 'width : 160px; float : right'], 'required' => false])
                 ->add('paymentCondition', ChoiceType::class, [
-                    'choices'=> [
+                    'choices' => [
                         'przelew' => 'przelew',
                         'gotówka' => 'gotówka',
                         'karta' => 'karta'
                     ]
-                ])->add('iban')->add('company')
-                ->add('customer')->add('totalGross', 'number')
+                ])->add('iban')
+                ->add('company')
+                ->add('customer', EntityType::class, array(
+                    'class' => 'invoiceFormBundle:Customer',
+                    'choice_label' => 'nameNip'
+                   
+                ))
+                ->add('totalGross', 'number')
                 ->add('positions', CollectionType::class, [
                     'options' => array(
-                        'label'=> '  ',
+                        'label' => '  ',
                     ),
                     'entry_type' => PositionsType::class,
                     'allow_add' => true,
@@ -39,14 +45,13 @@ class InvoiceType extends AbstractType
                     'attr' => [
                         'class' => 'pozycja row form-inline form-group',
                     ]
-                ]);
+        ]);
     }
-    
+
     /**
      * {@inheritdoc}
      */
-    public function configureOptions(OptionsResolver $resolver)
-    {
+    public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
             'data_class' => 'invoiceFormBundle\Entity\Invoice'
         ));
@@ -55,10 +60,8 @@ class InvoiceType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getBlockPrefix()
-    {
+    public function getBlockPrefix() {
         return 'invoiceformbundle_invoice';
     }
-
 
 }

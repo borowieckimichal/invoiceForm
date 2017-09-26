@@ -3,6 +3,7 @@
 namespace invoiceFormBundle\Controller;
 
 use invoiceFormBundle\Entity\Invoice;
+use invoiceFormBundle\Entity\Customer;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
@@ -40,7 +41,20 @@ class InvoiceController extends Controller
     public function newAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        
         $invoices = $em->getRepository('invoiceFormBundle:Invoice')->findAll();
+        
+        $customer = new Customer();
+        $customerForm = $this->createForm('invoiceFormBundle\Form\CustomerType', $customer);
+        $customerForm->handleRequest($request);
+
+        if ($customerForm->isSubmitted() && $customerForm->isValid()) {
+            $customer->setNameNip($customer->getName(). " " . $customer->getNip());
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($customer);
+            $em->flush();
+
+        }
         
         
         $invoice = new Invoice();
@@ -58,6 +72,7 @@ class InvoiceController extends Controller
         return $this->render('invoice/new.html.twig', array(
             'invoice' => $invoice,
             'form' => $form->createView(),
+            'customer_form' => $customerForm->createView(),
             'invoices' => $invoices,
         ));
     }

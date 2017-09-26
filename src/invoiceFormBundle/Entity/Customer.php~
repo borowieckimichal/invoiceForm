@@ -29,11 +29,18 @@ class Customer
     private $name;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="nip", type="integer", unique=true)
+     * @ORM\Column(name="nip", type="string", unique=true)
      */
     private $nip;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nameNip", type="string", nullable=true)
+     */
+    private $nameNip;
     
     /**
      * @ORM\OneToMany(targetEntity="Invoice", mappedBy="customer")

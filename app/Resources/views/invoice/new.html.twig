@@ -43,8 +43,11 @@
             {{ form_label(form.customer, 'Nabywca:', { 'label_attr' : {'class' : 'control-label'}}) }}
             {{ form_widget(form.customer, {'attr': {'class' : 'form-control input-sm', 'style' : 'width : 340px ; float : right'}})}} 
 
+         
         </div>
         <div class="col-md-2">
+            <!-- Przycisk uruchomienia modala -->
+<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#customer">Dodaj nowego</button>
         </div>
         <div class="col-md-5" name="seller">
             {{ form_label(form.company, 'Sprzedawca:', { 'label_attr' : {'class' : 'control-label'}}) }}
@@ -109,6 +112,57 @@
     <a class="btn btn-default btn-sm" href="{{ path('invoice_index') }}">Powrót do listy faktur</a>
     {{ form_end(form) }}
 
+    <!-- Modal -->
+<div id="customer" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Zawartość modala-->
+    <div class="modal-content">
+      
+      <!-- Nagłówek modala i przycisk zamykania-->
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Dodaj nowego kontrahenta</h4>
+      </div>
+
+      <!-- Zawartość modala w który musimy wkleić to co chcemy zobaczyć w modalu-->
+      <div class="modal-body">
+        {#<div class="tab-pane active col-md-3">#}
+       
+        {{ form_start(customer_form) }}
+        
+            <p class="text-muted text-center">
+                {{ form_label(customer_form.name, 'Podaj nazwę kontrahenta:', { 'label_attr': {'class': 'control-label'}}) }}
+                {{ form_widget(customer_form.name,{ 'attr': {'class': 'form-control top'}}) }}            
+            </p>
+        
+        
+            <p class="text-muted text-center">
+                {{ form_label(customer_form.nip, 'Podaj NIP:', { 'label_attr': {'class': 'control-label'}}) }}
+                {{ form_widget(customer_form.nip,{ 'attr': {'class': 'form-control top'}}) }} 
+            </p>
+        
+
+        <input type="submit" class="btn btn-success btn-sm" value="Dodaj kontrahenta" />
+        
+        {{ form_end(customer_form) }}
+{#    </div>#}
+      </div>
+
+      <!-- Stopka modala z przyciskiem zamykania-->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Anuluj</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+    
+    
+
+    
+    
+    
     <script src="{{ asset('js/jquery-3.1.1.js')}}"></script>
     <script src="{{ asset('js/jquery.collection.js')}}"></script>
     <script src="{{ asset('js/counting.js') }}"></script>   

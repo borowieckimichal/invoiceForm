@@ -29,11 +29,18 @@ class Customer
     private $name;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="nip", type="integer", unique=true)
+     * @ORM\Column(name="nip", type="string", unique=true)
      */
     private $nip;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nameNip", type="string", nullable=true)
+     */
+    private $nameNip;
     
     /**
      * @ORM\OneToMany(targetEntity="Invoice", mappedBy="customer")
@@ -134,5 +141,28 @@ class Customer
     public function getInvoices()
     {
         return $this->Invoices;
+    }
+
+    /**
+     * Set nameNip
+     *
+     * @param string $nameNip
+     * @return Customer
+     */
+    public function setNameNip($nameNip)
+    {
+        $this->nameNip = $nameNip;
+
+        return $this;
+    }
+
+    /**
+     * Get nameNip
+     *
+     * @return string 
+     */
+    public function getNameNip()
+    {
+        return $this->nameNip;
     }
 }

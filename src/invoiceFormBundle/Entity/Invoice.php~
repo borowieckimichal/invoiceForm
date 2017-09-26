@@ -320,4 +320,27 @@ class Invoice
     {
         return $this->positions;
     }
+
+    /**
+     * Set totalGross
+     *
+     * @param integer $totalGross
+     * @return Invoice
+     */
+    public function setTotalGross($totalGross)
+    {
+        $this->totalGross = $totalGross;
+
+        return $this;
+    }
+
+    /**
+     * Get totalGross
+     *
+     * @return integer 
+     */
+    public function getTotalGross()
+    {
+        return $this->totalGross;
+    }
 }
