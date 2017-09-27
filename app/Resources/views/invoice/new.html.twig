@@ -42,7 +42,7 @@
         <div class="col-md-5" name="buyer">
             {{ form_label(form.customer, 'Nabywca:', { 'label_attr' : {'class' : 'control-label'}}) }}
             {{ form_widget(form.customer, {'attr': {'class' : 'form-control input-sm', 'style' : 'width : 340px ; float : right'}})}} 
-
+            <div id="match"></div>
          
         </div>
         <div class="col-md-2">
@@ -165,7 +165,9 @@
     
     <script src="{{ asset('js/jquery-3.1.1.js')}}"></script>
     <script src="{{ asset('js/jquery.collection.js')}}"></script>
-    <script src="{{ asset('js/counting.js') }}"></script>   
+    <script src="{{ asset('js/counting.js') }}"></script> 
+    {#<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>#}
+   {# <script src="{{ asset('bundles/tuto/js/autocomplete-customers.js') }}"></script>#}
     <script type="text/javascript">
 
         $('.pozycja').collection({
@@ -182,5 +184,11 @@
             remove: '<a href="#" class="btn btn-default"><span class="glyphicon glyphicon-trash"></span></a>'
         });
 
-    </script>    
+
+    var loader = "{{ asset('bundles/tuto/images/loader-small.gif') }}"; //link to the animated loader-small.gif
+    var ROOT_URL = "{{ url('tuto_homepage')}}"; //your root URL, used in autocomplete-countries.js file
+    </script>  
+   <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+   <script src="{{ asset('bundles/tuto/js/autocomplete-customers.js') }}"></script>
+    
 {% endblock %}

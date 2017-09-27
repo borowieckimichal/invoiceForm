@@ -4,3 +4,15 @@ invoice_form:
     prefix:   /
 
 
+tuto_autocomplete:
+    path:     /autocomplete
+    defaults: { _controller: invoiceFormBundle:Autocomplete:index }
+ 
+ajax_autocomplete_countries:
+  path:  /ajax/autocomplete/update/data
+  defaults: { _controller: invoiceFormBundle:AjaxAutocomplete:updateData }
+
+
+tuto_homepage:
+    path:     /
+    defaults: { _controller: invoiceFormBundle:Index:index }
