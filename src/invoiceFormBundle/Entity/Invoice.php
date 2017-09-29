@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="invoice")
  * @ORM\Entity(repositoryClass="invoiceFormBundle\Repository\InvoiceRepository")
  */
-class Invoice
-{
+class Invoice {
+
     /**
      * @var int
      *
@@ -57,25 +57,25 @@ class Invoice
     private $paymentCondition;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="iban", type="integer")
+     * @ORM\Column(name="iban", type="string", nullable=true)
      */
     private $iban;
-    
+
     /**
      * @var int
      * 
-     * @ORM\Column(name="totalGross", type="integer")
+     * @ORM\Column(name="totalGross", type="decimal", precision=10, scale=2, nullable=true)
      */
     private $totalGross;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Company", inversedBy="invoices")
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
      */
     private $company;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Customer", inversedBy="invoices")
      * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
@@ -86,14 +86,13 @@ class Invoice
      * @ORM\OneToMany(targetEntity="Positions", mappedBy="invoice", cascade={"persist"})
      */
     private $positions;
-    
+
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -103,8 +102,7 @@ class Invoice
      * @param string $number
      * @return Invoice
      */
-    public function setNumber($number)
-    {
+    public function setNumber($number) {
         $this->number = $number;
 
         return $this;
@@ -115,8 +113,7 @@ class Invoice
      *
      * @return string 
      */
-    public function getNumber()
-    {
+    public function getNumber() {
         return $this->number;
     }
 
@@ -126,8 +123,7 @@ class Invoice
      * @param \DateTime $issueDate
      * @return Invoice
      */
-    public function setIssueDate($issueDate)
-    {
+    public function setIssueDate($issueDate) {
         $this->issueDate = $issueDate;
 
         return $this;
@@ -138,8 +134,7 @@ class Invoice
      *
      * @return \DateTime 
      */
-    public function getIssueDate()
-    {
+    public function getIssueDate() {
         return $this->issueDate;
     }
 
@@ -149,8 +144,7 @@ class Invoice
      * @param \DateTime $saleDate
      * @return Invoice
      */
-    public function setSaleDate($saleDate)
-    {
+    public function setSaleDate($saleDate) {
         $this->saleDate = $saleDate;
 
         return $this;
@@ -161,8 +155,7 @@ class Invoice
      *
      * @return \DateTime 
      */
-    public function getSaleDate()
-    {
+    public function getSaleDate() {
         return $this->saleDate;
     }
 
@@ -172,8 +165,7 @@ class Invoice
      * @param \DateTime $dueDate
      * @return Invoice
      */
-    public function setDueDate($dueDate)
-    {
+    public function setDueDate($dueDate) {
         $this->dueDate = $dueDate;
 
         return $this;
@@ -184,8 +176,7 @@ class Invoice
      *
      * @return \DateTime 
      */
-    public function getDueDate()
-    {
+    public function getDueDate() {
         return $this->dueDate;
     }
 
@@ -195,8 +186,7 @@ class Invoice
      * @param string $paymentCondition
      * @return Invoice
      */
-    public function setPaymentCondition($paymentCondition)
-    {
+    public function setPaymentCondition($paymentCondition) {
         $this->paymentCondition = $paymentCondition;
 
         return $this;
@@ -207,8 +197,7 @@ class Invoice
      *
      * @return string 
      */
-    public function getPaymentCondition()
-    {
+    public function getPaymentCondition() {
         return $this->paymentCondition;
     }
 
@@ -218,8 +207,7 @@ class Invoice
      * @param integer $iban
      * @return Invoice
      */
-    public function setIban($iban)
-    {
+    public function setIban($iban) {
         $this->iban = $iban;
 
         return $this;
@@ -230,15 +218,14 @@ class Invoice
      *
      * @return integer 
      */
-    public function getIban()
-    {
+    public function getIban() {
         return $this->iban;
     }
+
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->positions = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -248,8 +235,7 @@ class Invoice
      * @param \invoiceFormBundle\Entity\Company $company
      * @return Invoice
      */
-    public function setCompany(\invoiceFormBundle\Entity\Company $company = null)
-    {
+    public function setCompany(\invoiceFormBundle\Entity\Company $company = null) {
         $this->company = $company;
 
         return $this;
@@ -260,8 +246,7 @@ class Invoice
      *
      * @return \invoiceFormBundle\Entity\Company 
      */
-    public function getCompany()
-    {
+    public function getCompany() {
         return $this->company;
     }
 
@@ -271,8 +256,7 @@ class Invoice
      * @param \invoiceFormBundle\Entity\Customer $customer
      * @return Invoice
      */
-    public function setCustomer(\invoiceFormBundle\Entity\Customer $customer = null)
-    {
+    public function setCustomer(\invoiceFormBundle\Entity\Customer $customer = null) {
         $this->customer = $customer;
 
         return $this;
@@ -283,8 +267,7 @@ class Invoice
      *
      * @return \invoiceFormBundle\Entity\Customer 
      */
-    public function getCustomer()
-    {
+    public function getCustomer() {
         return $this->customer;
     }
 
@@ -294,8 +277,7 @@ class Invoice
      * @param \invoiceFormBundle\Entity\Positions $positions
      * @return Invoice
      */
-    public function addPosition(\invoiceFormBundle\Entity\Positions $positions)
-    {
+    public function addPosition(\invoiceFormBundle\Entity\Positions $positions) {
         $this->positions[] = $positions;
 
         return $this;
@@ -306,8 +288,7 @@ class Invoice
      *
      * @param \invoiceFormBundle\Entity\Positions $positions
      */
-    public function removePosition(\invoiceFormBundle\Entity\Positions $positions)
-    {
+    public function removePosition(\invoiceFormBundle\Entity\Positions $positions) {
         $this->positions->removeElement($positions);
     }
 
@@ -316,8 +297,7 @@ class Invoice
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getPositions()
-    {
+    public function getPositions() {
         return $this->positions;
     }
 
@@ -327,8 +307,7 @@ class Invoice
      * @param integer $totalGross
      * @return Invoice
      */
-    public function setTotalGross($totalGross)
-    {
+    public function setTotalGross($totalGross) {
         $this->totalGross = $totalGross;
 
         return $this;
@@ -339,8 +318,8 @@ class Invoice
      *
      * @return integer 
      */
-    public function getTotalGross()
-    {
+    public function getTotalGross() {
         return $this->totalGross;
     }
+
 }

@@ -29,9 +29,9 @@ class Company
     private $name;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="nip", type="integer", unique=true)
+     * @ORM\Column(name="nip", type="string", unique=true)
      */
     private $nip;
 

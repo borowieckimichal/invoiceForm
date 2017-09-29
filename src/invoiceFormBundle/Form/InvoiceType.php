@@ -10,7 +10,6 @@ use invoiceFormBundle\Form\PositionsType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class InvoiceType extends AbstractType {
 
@@ -27,9 +26,18 @@ class InvoiceType extends AbstractType {
                         'gotówka' => 'gotówka',
                         'karta' => 'karta'
                     ]
-                ])->add('iban')
-                ->add('company')
-                ->add('customer', TextType::class)
+                ])->add('iban', null, [
+                    'required' => false
+                ])
+                ->add('company', EntityType::class, [
+                    'class' => 'invoiceFormBundle:Company',
+                    'choice_label' => 'name',
+                ])
+                ->add('customer', EntityType::class, [
+                    'class' => 'invoiceFormBundle:Customer',
+                    'choice_label' => 'nameNip',
+                    'placeholder' => 'Wybierz nabywcę...',
+                ])
                 ->add('totalGross', 'number')
                 ->add('positions', CollectionType::class, [
                     'options' => array(

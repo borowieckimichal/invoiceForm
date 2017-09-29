@@ -1,36 +1,29 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Company</h1>
+    <div class="tab-pane active col-md-3">
+        <h3 class="text-muted text-center">Dane sprzedawcy</h3>   
+        <div id="borderedTable" class="body collapse in">
+            <table class="table table-bordered responsive-table">
+                <tbody>
+                    <tr>
+                        <th class="text-muted">Nazwa</th>
+                        <td>{{ company.name }}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-muted">NIP</th>
+                        <td>{{ company.nip }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <a class="btn btn-default btn-sm" href="{{ path('company_index') }}">Powrót do listy firm</a>
+        <a class="btn btn-default btn-sm" href="{{ path('company_edit', { 'id': company.id }) }}">Edycja danych</a>
+        <hr>
+        {{ form_start(delete_form) }}
+        <input class="btn btn-danger btn-sm" type="submit" value="usuń firmę">
+        {{ form_end(delete_form) }}
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ company.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ company.name }}</td>
-            </tr>
-            <tr>
-                <th>Nip</th>
-                <td>{{ company.nip }}</td>
-            </tr>
-        </tbody>
-    </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('company_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('company_edit', { 'id': company.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    </div>
 {% endblock %}

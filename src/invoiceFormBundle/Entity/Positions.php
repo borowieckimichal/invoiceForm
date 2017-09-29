@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="positions")
  * @ORM\Entity(repositoryClass="invoiceFormBundle\Repository\PositionsRepository")
  */
-class Positions
-{
+class Positions {
+
     /**
      * @var int
      *
@@ -43,46 +43,45 @@ class Positions
     private $unitMeasure;
 
     /**
-     * @var string
+     * @var int
      *
-     * @ORM\Column(name="priceNet", type="string", length=255)
+     * @ORM\Column(name="priceNet", type="decimal", precision=10, scale=2)
      */
     private $priceNet;
 
     /**
-     * @var string
+     * @var int
      *
-     * @ORM\Column(name="valueNet", type="string", length=255)
+     * @ORM\Column(name="valueNet", type="decimal", precision=10, scale=2)
      */
     private $valueNet;
 
     /**
-     * @var string
+     * @var int
      *
-     * @ORM\Column(name="vat", type="string", length=255)
+     * @ORM\Column(name="vat", type="decimal", precision=10, scale=2)
      */
     private $vat;
 
     /**
-     * @var string
+     * @var int
      *
-     * @ORM\Column(name="valueGross", type="string", length=255)
+     * @ORM\Column(name="valueGross", type="decimal", precision=10, scale=2)
      */
     private $valueGross;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Invoice", inversedBy="positions")
      * @ORM\JoinColumn(name="invoice_id", referencedColumnName="id", onDelete="CASCADE", nullable=true) 
      */
     private $invoice;
-    
+
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -92,8 +91,7 @@ class Positions
      * @param string $productName
      * @return Positions
      */
-    public function setProductName($productName)
-    {
+    public function setProductName($productName) {
         $this->productName = $productName;
 
         return $this;
@@ -104,8 +102,7 @@ class Positions
      *
      * @return string 
      */
-    public function getProductName()
-    {
+    public function getProductName() {
         return $this->productName;
     }
 
@@ -115,8 +112,7 @@ class Positions
      * @param string $quantity
      * @return Positions
      */
-    public function setQuantity($quantity)
-    {
+    public function setQuantity($quantity) {
         $this->quantity = $quantity;
 
         return $this;
@@ -127,8 +123,7 @@ class Positions
      *
      * @return string 
      */
-    public function getQuantity()
-    {
+    public function getQuantity() {
         return $this->quantity;
     }
 
@@ -138,8 +133,7 @@ class Positions
      * @param string $unitMeasure
      * @return Positions
      */
-    public function setUnitMeasure($unitMeasure)
-    {
+    public function setUnitMeasure($unitMeasure) {
         $this->unitMeasure = $unitMeasure;
 
         return $this;
@@ -150,8 +144,7 @@ class Positions
      *
      * @return string 
      */
-    public function getUnitMeasure()
-    {
+    public function getUnitMeasure() {
         return $this->unitMeasure;
     }
 
@@ -161,8 +154,7 @@ class Positions
      * @param string $priceNet
      * @return Positions
      */
-    public function setPriceNet($priceNet)
-    {
+    public function setPriceNet($priceNet) {
         $this->priceNet = $priceNet;
 
         return $this;
@@ -173,8 +165,7 @@ class Positions
      *
      * @return string 
      */
-    public function getPriceNet()
-    {
+    public function getPriceNet() {
         return $this->priceNet;
     }
 
@@ -184,8 +175,7 @@ class Positions
      * @param string $valueNet
      * @return Positions
      */
-    public function setValueNet($valueNet)
-    {
+    public function setValueNet($valueNet) {
         $this->valueNet = $valueNet;
 
         return $this;
@@ -196,8 +186,7 @@ class Positions
      *
      * @return string 
      */
-    public function getValueNet()
-    {
+    public function getValueNet() {
         return $this->valueNet;
     }
 
@@ -207,8 +196,7 @@ class Positions
      * @param string $vat
      * @return Positions
      */
-    public function setVat($vat)
-    {
+    public function setVat($vat) {
         $this->vat = $vat;
 
         return $this;
@@ -219,8 +207,7 @@ class Positions
      *
      * @return string 
      */
-    public function getVat()
-    {
+    public function getVat() {
         return $this->vat;
     }
 
@@ -230,8 +217,7 @@ class Positions
      * @param string $valueGross
      * @return Positions
      */
-    public function setValueGross($valueGross)
-    {
+    public function setValueGross($valueGross) {
         $this->valueGross = $valueGross;
 
         return $this;
@@ -242,8 +228,7 @@ class Positions
      *
      * @return string 
      */
-    public function getValueGross()
-    {
+    public function getValueGross() {
         return $this->valueGross;
     }
 
@@ -253,8 +238,7 @@ class Positions
      * @param \invoiceFormBundle\Entity\Invoice $invoice
      * @return Positions
      */
-    public function setInvoice(\invoiceFormBundle\Entity\Invoice $invoice = null)
-    {
+    public function setInvoice(\invoiceFormBundle\Entity\Invoice $invoice = null) {
         $this->invoice = $invoice;
 
         return $this;
@@ -265,8 +249,8 @@ class Positions
      *
      * @return \invoiceFormBundle\Entity\Invoice 
      */
-    public function getInvoice()
-    {
+    public function getInvoice() {
         return $this->invoice;
     }
+
 }

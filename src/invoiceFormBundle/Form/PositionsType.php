@@ -6,7 +6,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-
 class PositionsType extends AbstractType {
 
     /**
@@ -19,7 +18,7 @@ class PositionsType extends AbstractType {
                         'style' => 'width : 340px; float : left',
                         'placeholder' => 'nazwa produktu'
                     ]
-                ])               
+                ])
                 ->add('quantity', 'text', ['label' => false,
                     'attr' => [
                         'class' => 'form-control',
@@ -61,8 +60,7 @@ class PositionsType extends AbstractType {
                         'class' => 'form-control',
                         'style' => 'width : 160px; float : left',
                         'placeholder' => 'kwota brutto'
-            ]]);
-
+        ]]);
     }
 
     /**

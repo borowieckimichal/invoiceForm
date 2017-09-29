@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="customer")
  * @ORM\Entity(repositoryClass="invoiceFormBundle\Repository\CustomerRepository")
  */
-class Customer
-{
+class Customer {
+
     /**
      * @var int
      *
@@ -34,14 +34,14 @@ class Customer
      * @ORM\Column(name="nip", type="string", unique=true)
      */
     private $nip;
-    
+
     /**
      * @var string
      *
      * @ORM\Column(name="nameNip", type="string", nullable=true)
      */
     private $nameNip;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="Invoice", mappedBy="customer")
      */
@@ -52,8 +52,7 @@ class Customer
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -63,8 +62,7 @@ class Customer
      * @param string $name
      * @return Customer
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
 
         return $this;
@@ -75,8 +73,7 @@ class Customer
      *
      * @return string 
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -86,8 +83,7 @@ class Customer
      * @param integer $nip
      * @return Customer
      */
-    public function setNip($nip)
-    {
+    public function setNip($nip) {
         $this->nip = $nip;
 
         return $this;
@@ -98,15 +94,14 @@ class Customer
      *
      * @return integer 
      */
-    public function getNip()
-    {
+    public function getNip() {
         return $this->nip;
     }
+
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->Invoices = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -116,8 +111,7 @@ class Customer
      * @param \invoiceFormBundle\Entity\Invoice $invoices
      * @return Customer
      */
-    public function addInvoice(\invoiceFormBundle\Entity\Invoice $invoices)
-    {
+    public function addInvoice(\invoiceFormBundle\Entity\Invoice $invoices) {
         $this->Invoices[] = $invoices;
 
         return $this;
@@ -128,8 +122,7 @@ class Customer
      *
      * @param \invoiceFormBundle\Entity\Invoice $invoices
      */
-    public function removeInvoice(\invoiceFormBundle\Entity\Invoice $invoices)
-    {
+    public function removeInvoice(\invoiceFormBundle\Entity\Invoice $invoices) {
         $this->Invoices->removeElement($invoices);
     }
 
@@ -138,8 +131,7 @@ class Customer
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getInvoices()
-    {
+    public function getInvoices() {
         return $this->Invoices;
     }
 
@@ -149,8 +141,7 @@ class Customer
      * @param string $nameNip
      * @return Customer
      */
-    public function setNameNip($nameNip)
-    {
+    public function setNameNip($nameNip) {
         $this->nameNip = $nameNip;
 
         return $this;
@@ -161,8 +152,12 @@ class Customer
      *
      * @return string 
      */
-    public function getNameNip()
-    {
+    public function getNameNip() {
         return $this->nameNip;
     }
+
+    public function __toString() {
+        return (string) $this->getNameNip();
+    }
+
 }

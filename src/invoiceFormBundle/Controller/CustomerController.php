@@ -5,29 +5,29 @@ namespace invoiceFormBundle\Controller;
 use invoiceFormBundle\Entity\Customer;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Customer controller.
  *
  * @Route("customer")
  */
-class CustomerController extends Controller
-{
+class CustomerController extends Controller {
+
     /**
      * Lists all customer entities.
      *
      * @Route("/", name="customer_index")
      * @Method("GET")
      */
-    public function indexAction()
-    {
+    public function indexAction() {
         $em = $this->getDoctrine()->getManager();
 
         $customers = $em->getRepository('invoiceFormBundle:Customer')->findAll();
 
         return $this->render('customer/index.html.twig', array(
-            'customers' => $customers,
+                    'customers' => $customers,
         ));
     }
 
@@ -37,8 +37,7 @@ class CustomerController extends Controller
      * @Route("/new", name="customer_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
-    {
+    public function newAction(Request $request) {
         $customer = new Customer();
         $form = $this->createForm('invoiceFormBundle\Form\CustomerType', $customer);
         $form->handleRequest($request);
@@ -52,8 +51,8 @@ class CustomerController extends Controller
         }
 
         return $this->render('customer/new.html.twig', array(
-            'customer' => $customer,
-            'form' => $form->createView(),
+                    'customer' => $customer,
+                    'form' => $form->createView(),
         ));
     }
 
@@ -63,13 +62,12 @@ class CustomerController extends Controller
      * @Route("/{id}", name="customer_show")
      * @Method("GET")
      */
-    public function showAction(Customer $customer)
-    {
+    public function showAction(Customer $customer) {
         $deleteForm = $this->createDeleteForm($customer);
 
         return $this->render('customer/show.html.twig', array(
-            'customer' => $customer,
-            'delete_form' => $deleteForm->createView(),
+                    'customer' => $customer,
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -79,8 +77,7 @@ class CustomerController extends Controller
      * @Route("/{id}/edit", name="customer_edit")
      * @Method({"GET", "POST"})
      */
-    public function editAction(Request $request, Customer $customer)
-    {
+    public function editAction(Request $request, Customer $customer) {
         $deleteForm = $this->createDeleteForm($customer);
         $editForm = $this->createForm('invoiceFormBundle\Form\CustomerType', $customer);
         $editForm->handleRequest($request);
@@ -92,9 +89,9 @@ class CustomerController extends Controller
         }
 
         return $this->render('customer/edit.html.twig', array(
-            'customer' => $customer,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'customer' => $customer,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -104,8 +101,7 @@ class CustomerController extends Controller
      * @Route("/{id}", name="customer_delete")
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, Customer $customer)
-    {
+    public function deleteAction(Request $request, Customer $customer) {
         $form = $this->createDeleteForm($customer);
         $form->handleRequest($request);
 
@@ -125,12 +121,12 @@ class CustomerController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm(Customer $customer)
-    {
+    private function createDeleteForm(Customer $customer) {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('customer_delete', array('id' => $customer->getId())))
-            ->setMethod('DELETE')
-            ->getForm()
+                        ->setAction($this->generateUrl('customer_delete', array('id' => $customer->getId())))
+                        ->setMethod('DELETE')
+                        ->getForm()
         ;
     }
+
 }

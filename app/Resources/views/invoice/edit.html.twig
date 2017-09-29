@@ -1,21 +1,186 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Invoice edit</h1>
+    <div class="tab-pane active col-md-12">
+        <h3 class="text-muted">edycja faktury</h3>
+        {% form_theme edit_form ':invoice:jquery.collection.html.twig' %}
+        {{ form_start(edit_form) }}
 
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
+        <div class="text-muted text-center">
+            {{ form_label(edit_form.number, 'Faktura nr:', { 'label_attr': {'class': 'control-label'}}) }}
+            {{ form_widget(edit_form.number, { 'attr': {'class': 'form-control input-sm text-center', 'style' : 'width : 120px ; margin : auto'}}) }}
+        </div>     
+        <div class="row">
+            <div class="col-md-6">
+            </div>
+            <div class="col-md-6">
+                <div class="form-group text-muted text-right">
+                    {{ form_label(edit_form.issueDate, 'Data wystawienia:', { 'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_widget(edit_form.issueDate, { 'attr' : {'class': 'form-control col-md-3', 'id' : 'date2', 'type' : 'date', 'name' : 'date2'}}) }}   
+                </div>
+                <div class="form-group text-muted text-right">
+                    {{ form_label(edit_form.saleDate, 'Data sprzedaży:', { 'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_widget(edit_form.saleDate, {'attr' : {'class' : 'form-control','id': 'date2', 'type' : 'date', 'name' : 'date2'}}) }}
+                </div>
+                <div class="form-group text-muted text-right">
+                    {{ form_label(edit_form.dueDate, 'Termin płatności:', { 'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_widget(edit_form.dueDate,{'attr' : {'class' : 'form-control','id': 'date2', 'type' : 'date', 'name' : 'date2'}}) }}
+                </div>                 
+            </div> 
+        </div>
+        <div class="form-group">
+            &nbsp;
+        </div>
+        <hr>    
+        <div class="row">
+            <div class="col-md-5" name="buyer">
+                {{ form_label(edit_form.customer, 'Nabywca:', { 'label_attr' : {'class' : 'control-label'}}) }}
+                {{ form_widget(edit_form.customer, {'attr': {'data-placeholder':'Wybierz','class' : 'form-control chzn-select input-sm', 'tabindex' : '2', 'style' : 'width : 340px ; float : right'}})}} 
+                <div id="match"></div>
 
-    <ul>
-        <li>
-            <a href="{{ path('invoice_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+            </div>
+            <div class="col-md-2">
+                <!-- Przycisk uruchomienia modala -->
+                <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#customer">Dodaj nowego</button>
+            </div>
+            <div class="col-md-5" name="seller">
+                {{ form_label(edit_form.company, 'Sprzedawca:', { 'label_attr' : {'class' : 'control-label'}}) }}
+                {{ form_widget(edit_form.company, {'attr' : {'class' : 'form-control input-sm', 'style' : 'width : 340px ; float : right'}})}}            
+            </div>  
+        </div>
+        <hr>    
+        <div class="row">
+            <div class="col-md-12">
+                <table class="control-label">
+                    <th width="340px" float="left">
+                        Nazwa produktu
+                    </th>
+                    <th width="70px" float="left">
+                        ilość
+                    </th>
+                    <th width="55px" float="left">
+                        JM
+                    </th>
+                    <th width="160px" float="left">
+                        cena netto
+                    </th>
+                    <th width="160px" float="left">
+                        wartość netto
+                    </th>
+                    <th width="80px" float="left">
+                        VAT
+                    </th>
+                    <th width="160px" float="left">
+                        kwota brutto
+                    </th>
+                </table>       
+                <div id="form-test">
+                    {{ form_widget(edit_form.positions)}}       
+                </div>               
+            </div>     
+        </div>
+        <hr>    
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">             
+                    {{ form_label(edit_form.paymentCondition, 'Warunki platności:', { 'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_widget(edit_form.paymentCondition, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 280px ; float : right'}}) }}
+                </div> 
+                <div class="form-group" style="display: inline;" id="iban" >
+                    {{ form_label(edit_form.iban, 'Nr rachunku bankowego:', { 'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_widget(edit_form.iban, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 280px ; float : right'}}) }}
+                </div>               
+            </div> 
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ form_label(edit_form.totalGross, 'Razem Brutto:', { 'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_widget(edit_form.totalGross, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 280px ; float : right'}}) }}
+                </div> 
+            </div>
+        </div>    
+
+
+        <input class="btn btn-success btn-sm" type="submit" value="Zapisz zmiany" />
+        <a class="btn btn-default btn-sm" href="{{ path('invoice_index') }}">Powrót do listy faktur</a>    
+        {{ form_end(edit_form) }}
+
+        <!-- Modal -->
+        <div id="customer" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Zawartość modala-->
+                <div class="modal-content">
+
+                    <!-- Nagłówek modala i przycisk zamykania-->
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Dodaj nowego kontrahenta</h4>
+                    </div>
+
+                    <!-- Zawartość modala w który musimy wkleić to co chcemy zobaczyć w modalu-->
+                    <div class="modal-body">
+                        {#<div class="tab-pane active col-md-3">#}
+
+                        {{ form_start(customer_form) }}
+
+                        <p class="text-muted text-center">
+                            {{ form_label(customer_form.name, 'Podaj nazwę kontrahenta:', { 'label_attr': {'class': 'control-label'}}) }}
+                            {{ form_widget(customer_form.name,{ 'attr': {'class': 'form-control top'}}) }}            
+                        </p>
+
+
+                        <p class="text-muted text-center">
+                            {{ form_label(customer_form.nip, 'Podaj NIP:', { 'label_attr': {'class': 'control-label'}}) }}
+                            {{ form_widget(customer_form.nip,{ 'attr': {'class': 'form-control top'}}) }} 
+                        </p>
+
+
+                        <input type="submit" class="btn btn-success btn-sm" value="Dodaj kontrahenta" />
+
+                        {{ form_end(customer_form) }}
+                        {#    </div>#}
+                    </div>
+
+                    <!-- Stopka modala z przyciskiem zamykania-->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Anuluj</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <script src="{{ asset('js/jquery-3.1.1.js')}}"></script>
+    <script src="{{ asset('js/jquery.collection.js')}}"></script>
+    <script src="{{ asset('js/counting.js') }}"></script> 
+
+    <script type="text/javascript">
+
+        $('.pozycja').collection({
+            min: 1,
+            init_with_n_elements: 1,
+            prototype_name: '{{ edit_form.positions.vars.prototype.vars.name }}',
+            allow_add: true,
+            allow_remove: true,
+            name_prefix: '{{ edit_form.positions.vars.full_name }}',
+            position_field_selector: '.my-position',
+            up: '<a href="#" class="btn btn-default"><span class="glyphicon glyphicon-arrow-up"></span></a>',
+            down: '<a href="#" class="btn btn-default"><span class="glyphicon glyphicon-arrow-down"></span></a>',
+            add: '<a href="#" class="btn btn-default"><span class="glyphicon glyphicon-plus-sign"></span></a>',
+            remove: '<a href="#" class="btn btn-default"><span class="glyphicon glyphicon-trash"></span></a>'
+        });
+
+
+    </script> 
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="{{ asset('bundles/tuto/js/autocomplete-customers.js') }}"></script>
+    <script type="text/javascript">
+        $(".chzn-select").chosen();
+        $(".chzn-select-deselect").chosen({
+            allow_single_deselect: true
+        });
+    </script>    
+
 {% endblock %}

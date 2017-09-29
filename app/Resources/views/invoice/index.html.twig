@@ -1,49 +1,45 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Invoices list</h1>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Number</th>
-                <th>Issuedate</th>
-                <th>Saledate</th>
-                <th>Duedate</th>
-                <th>Paymentcondition</th>
-                <th>Iban</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for invoice in invoices %}
-            <tr>
-                <td><a href="{{ path('invoice_show', { 'id': invoice.id }) }}">{{ invoice.id }}</a></td>
-                <td>{{ invoice.number }}</td>
-                <td>{% if invoice.issueDate %}{{ invoice.issueDate|date('Y-m-d') }}{% endif %}</td>
-                <td>{% if invoice.saleDate %}{{ invoice.saleDate|date('Y-m-d') }}{% endif %}</td>
-                <td>{% if invoice.dueDate %}{{ invoice.dueDate|date('Y-m-d') }}{% endif %}</td>
-                <td>{{ invoice.paymentCondition }}</td>
-                <td>{{ invoice.iban }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('invoice_show', { 'id': invoice.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('invoice_edit', { 'id': invoice.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('invoice_new') }}">Create a new invoice</a>
-        </li>
-    </ul>
+    <div class="tab-content col-md-10">
+        <h4 class="text-muted">lista twoich faktur:</h4>
+        {% if invoices |length > 0 %}
+            <div id="borderedTable" class="body collapse in">
+                <table class="table table-bordered responsive-table">
+                    <thead>
+                        <tr>
+                            <th class="text-muted">Nr faktury</th>
+                            <th class="text-muted">Data wystawienia</th>
+                            <th class="text-muted">Data sprzedaży</th>
+                            <th class="text-muted">Data płatności</th>
+                            <th class="text-muted">Sposób platności</th>
+                            <th class="text-muted">kwota razem brutto</th>
+                            <th class="text-muted">Menu</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for invoice in invoices %}
+                            <tr>
+                                <td><a class="btn btn-info btn-sm" href="{{ path('invoice_show', { 'id': invoice.id }) }}">{{ invoice.number }}</a></td>
+                                <td>{% if invoice.issueDate %}{{ invoice.issueDate|date('Y-m-d') }}{% endif %}</td>
+                                <td>{% if invoice.saleDate %}{{ invoice.saleDate|date('Y-m-d') }}{% endif %}</td>
+                                <td>{% if invoice.dueDate %}{{ invoice.dueDate|date('Y-m-d') }}{% endif %}</td>
+                                <td>{{ invoice.paymentCondition }}</td>
+                                <td>{{ invoice.totalGross }}</td>
+                                <td>
+                                    <a class="btn btn-danger btn-sm" href="{{ path('invoice_delete', { 'id': invoice.id }) }}">Usuń fakturę</a>
+                                    <a class="btn btn-primary btn-sm" href="{{ path('invoice_edit', { 'id': invoice.id }) }}">Edycja faktury</a>                                          
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <ul>
+                    <a class="btn btn-success btn-sm" href="{{ path('invoice_new') }}">Wystaw nową fakturę</a>
+                </ul>
+            {% else %}
+                <p class="text-center">brak faktur w bazie dla<p>
+                {% endif %}
+        </div>
+    </div>
 {% endblock %}

@@ -1,51 +1,146 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Invoice</h1>
+    <h3 class="text-muted">Twoja faktura</h3>
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ invoice.id }}</td>
-            </tr>
-            <tr>
-                <th>Number</th>
-                <td>{{ invoice.number }}</td>
-            </tr>
-            <tr>
-                <th>Issuedate</th>
-                <td>{% if invoice.issueDate %}{{ invoice.issueDate|date('Y-m-d') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Saledate</th>
-                <td>{% if invoice.saleDate %}{{ invoice.saleDate|date('Y-m-d') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Duedate</th>
-                <td>{% if invoice.dueDate %}{{ invoice.dueDate|date('Y-m-d') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Paymentcondition</th>
-                <td>{{ invoice.paymentCondition }}</td>
-            </tr>
-            <tr>
-                <th>Iban</th>
-                <td>{{ invoice.iban }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="text-muted text-center">           
+        <b class="text-muted">Faktura Nr</b>
+        {{ invoice.number }}           
+    </div>
+    <div class="row">   
+        <div class="col-md-6">       
+        </div>
+        <div class="col-md-6">
+            <div class="form-group text-muted text-right">                
+                <b>Data wystawienia:</b> 
+                {% if invoice.issueDate %}{{ invoice.issueDate|date('Y-m-d') }}{% endif %}            
+            </div>
+            <div class="form-group text-muted text-right">
+                <b>Data sprzedaży:</b>
+                {% if invoice.saleDate %}{{ invoice.saleDate|date('Y-m-d') }}{% endif %}
+            </div>
+            <div class="form-group text-muted text-right">
+                <b>Data płatności:</b>
+                {% if invoice.dueDate %}{{ invoice.dueDate|date('Y-m-d') }}{% endif %}
+            </div>                   
+        </div>   
+    </div>   
+    <div class="form-group">
+        &nbsp;
+    </div>
+    <div class="row">
+        <div class="col-md-5">
+            <div class="form-group">
+                <b class="text-muted">Nazwa nabywcy:</b>
+                <td> 
+                    <input class="form-control input-sm" value="{{ invoice.customer.name }}" readonly="readonly"> 
+                </td>
+                <b class="text-muted">Nr NIP nabywcy:</b>
+                <td> 
+                    <input class="form-control input-sm" value="{{ invoice.customer.nip }}" readonly="readonly"> 
+                </td>            
+                {# {{ invoice.customer }} #}                   
+            </div>                   
+        </div>
+        <div class="col-md-2">
+        </div>     
+        <div class="col-md-5">
+            <div class="form-group">
+                <b class="text-muted">Nazwa sprzedawcy:</b>
+                <td> 
+                    <input class="form-control input-sm" value="{{ invoice.company.name }}" readonly="readonly"> 
+                </td>
+                <b class="text-muted">Nr NIP sprzedawcy:</b>
+                <td> 
+                    <input class="form-control input-sm" value="{{ invoice.company.nip }}" readonly="readonly"> 
+                </td>                  
+            </div>                 
+        </div>   
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="control-label">
+                <th width="220px" float="left">
+                    Nazwa produktu
+                </th>
+                <th width="70px" float="left">
+                    ilość
+                </th>
+                <th width="45px" float="left">
+                    JM
+                </th>
+                <th width="100px" float="left">
+                    cena netto
+                </th>
+                <th width="120px" float="left">
+                    wartość netto
+                </th>
+                <th width="80px" float="left">
+                    VAT
+                </th>
+                <th width="120px" float="left">
+                    kwota brutto
+                </th>
+                {% for positions in invoice.positions %}
+                    <tr>
+                        <td> 
+                            <input class="form-control input-sm" value="{{ positions.productName }}" readonly="readonly"> 
+                        </td>
 
-    <ul>
+                        <td> 
+                            <input class="form-control input-sm" value="{{ positions.quantity }}" readonly="readonly"> 
+                        </td>
+                        <td> 
+                            <input class="form-control input-sm" value="{{ positions.unitMeasure }}" readonly="readonly"> 
+                        </td>
+                        <td> 
+                            <input class="form-control input-sm" value="{{ positions.priceNet }}" readonly="readonly"> 
+                        </td>
+                        <td> 
+                            <input class="form-control input-sm" value="{{ positions.valueNet }}" readonly="readonly"> 
+                        </td>
+                        <td> 
+                            <input class="form-control input-sm" value="{{ positions.vat }}" readonly="readonly">
+                        </td>                            
+                        <td> 
+                            <input class="form-control input-sm"  value="{{ positions.valueGross }}" readonly="readonly"> 
+                        </td>                                                                     
+                    </tr>
+                    <br>
+                {% endfor %}
+            </table>         
+        </div>  
+    </div>        
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <b>Sposób płatności:</b>
+                {{ invoice.paymentCondition }}              
+            </div>    
+            <div class="form-group">
+                <b>Nr rachunku bankowego:</b>
+                {{ invoice.iban }}        
+            </div>        
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <b>Kwota brutto:</b>
+                {{ invoice.totalGross }}        
+            </div>              
+        </div>
+    </div>
+    <ul class="list-inline">
         <li>
-            <a href="{{ path('invoice_index') }}">Back to the list</a>
+            <a class="btn btn-default btn-sm" href="{{ path('invoice_index') }}">Powrót do listy faktur</a>
         </li>
         <li>
-            <a href="{{ path('invoice_edit', { 'id': invoice.id }) }}">Edit</a>
+            <a class="btn btn-default btn-sm" href="{{ path('invoice_edit', { 'id': invoice.id }) }}">Edycja faktury</a>
         </li>
         <li>
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+            <input type="submit" class="btn btn-danger btn-sm" value="Usuń fakturę">
             {{ form_end(delete_form) }}
         </li>
     </ul>
