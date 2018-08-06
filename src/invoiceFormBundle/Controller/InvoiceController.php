@@ -124,6 +124,11 @@ class InvoiceController extends Controller {
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
+            $invoicePositions = $invoice->getPositions();
+            foreach ($invoicePositions as $invoicePosition) {
+                $invoicePosition->setInvoice($invoice);
+            }
+            $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('invoice_edit', array('id' => $invoice->getId()));
         }
 

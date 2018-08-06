@@ -6,9 +6,11 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Invoice
- *
  * @ORM\Table(name="invoice")
  * @ORM\Entity(repositoryClass="invoiceFormBundle\Repository\InvoiceRepository")
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
+ * @ORM\DiscriminatorMap({"invoice" = "Invoice", "invoicecorrective" = "InvoiceCorrective"})
  */
 class Invoice {
 

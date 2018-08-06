@@ -5,7 +5,8 @@
         <group>
             <file>file:/home/michal/Workspace/invoiceForm/invoiceForm/src/invoiceFormBundle/Controller/InvoiceController.php</file>
             <file>file:/home/michal/Workspace/invoiceForm/invoiceForm/app/Resources/views/invoice/index.html.twig</file>
-            <file>file:/home/michal/Workspace/invoiceForm/invoiceForm/app/Resources/views/invoice/new.html.twig</file>
+            <file>file:/home/michal/Workspace/invoiceForm/invoiceForm/src/invoiceFormBundle/Controller/InvoiceCorrectiveController.php</file>
+            <file>file:/home/michal/Workspace/invoiceForm/invoiceForm/src/invoiceFormBundle/Entity/Invoice.php</file>
         </group>
     </open-files>
 </project-private>

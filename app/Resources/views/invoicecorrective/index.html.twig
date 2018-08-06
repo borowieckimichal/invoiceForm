@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Invoicecorrectives list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Invoicecorrected</th>
+                <th>Comments</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for invoiceCorrective in invoiceCorrectives %}
+            <tr>
+                <td><a href="{{ path('invoicecorrective_show', { 'id': invoiceCorrective.id }) }}">{{ invoiceCorrective.id }}</a></td>
+                <td>{{ invoiceCorrective.invoiceCorrected }}</td>
+                <td>{{ invoiceCorrective.comments }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('invoicecorrective_show', { 'id': invoiceCorrective.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('invoicecorrective_edit', { 'id': invoiceCorrective.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('invoicecorrective_new') }}">Create a new invoiceCorrective</a>
+        </li>
+    </ul>
+{% endblock %}
