@@ -3,6 +3,7 @@
 namespace invoiceFormBundle\Controller;
 
 use invoiceFormBundle\Entity\InvoiceCorrective;
+use invoiceFormBundle\Entity\Invoice;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
@@ -34,7 +35,7 @@ class InvoiceCorrectiveController extends Controller
     /**
      * Creates a new invoiceCorrective entity.
      *
-     * @Route("/new", name="invoicecorrective_new")
+     * @Route("/{Id_invoice}/new", name="invoicecorrective_new")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)

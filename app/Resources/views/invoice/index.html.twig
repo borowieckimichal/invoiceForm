@@ -28,7 +28,8 @@
                                 <td>{{ invoice.totalGross }}</td>
                                 <td>
                                     <a class="btn btn-danger btn-sm" href="{{ path('invoice_delete', { 'id': invoice.id }) }}">Usuń fakturę</a>
-                                    <a class="btn btn-primary btn-sm" href="{{ path('invoice_edit', { 'id': invoice.id }) }}">Edycja faktury</a>                                          
+                                    <a class="btn btn-primary btn-sm" href="{{ path('invoice_edit', { 'id': invoice.id }) }}">Edycja faktury</a>
+                                    <a class="btn btn-info btn-sm" href="{{ path('invoicecorrective_new', { 'Id_invoice': invoice.id}) }}">Wystaw korekte</a>
                                 </td>
                             </tr>
                         {% endfor %}
