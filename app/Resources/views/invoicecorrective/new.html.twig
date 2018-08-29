@@ -1,14 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-      <div class="tab-pane active col-md-12">
+    <div class="tab-pane active col-md-12">
         <h3 class="text-muted">Tworzenie nowej faktury korygującej</h3>
         {% form_theme form ':invoice:jquery.collection.html.twig' %}
         {{ form_start(form) }}
 
         <div class="text-muted text-center">
-            {{ form_label(form.number, 'Faktura nr:', { 'label_attr': {'class': 'control-label'}}) }}
+            {{ form_label(form.number, 'Faktura Korygująca nr:', { 'label_attr': {'class': 'control-label'}}) }}
             {{ form_widget(form.number, { 'attr': {'class': 'form-control input-sm text-center', 'style' : 'width : 120px ; margin : auto'}}) }}
+        </div>
+        <div class="text-muted text-center">           
+            <b class="text-muted">Faktura korygowana Nr</b>
+            {{ form_widget(form.invoiceCorrected, {'attr': {'class': 'form-control input-sm text-center', 'readonly': 'readonly','style' :'width :120px ; margin : auto'}})  }} 
+            data wystawienia: {% if invoice.issueDate %}{{ invoice.issueDate|date('Y-m-d') }}{% endif %}          
         </div>
         <div class="row">
             <div class="col-md-6">
@@ -34,50 +39,123 @@
         <hr>
         <div class="row">
             <div class="col-md-5" name="buyer">
-                {{ form_label(form.customer, 'Nabywca:', { 'label_attr' : {'class' : 'control-label'}}) }}
-                {{ form_widget(form.customer, {'attr': {'data-placeholder':'Wybierz','class' : 'form-control chzn-select input-sm', 'tabindex' : '2', 'style' : 'width : 340px ; float : right'}})}} 
+                <b class="text-muted">Nazwa nabywcy:</b>
+                <td> 
+                    <input class="form-control input-sm" value="{{ invoice.customer.name }}" readonly="readonly"> 
+                </td>
+                <b class="text-muted">Nr NIP nabywcy:</b>
+                <td> 
+                    <input class="form-control input-sm" value="{{ invoice.customer.nip }}" readonly="readonly"> 
+                </td>
                 <div id="match"></div>
             </div>
             <div class="col-md-2">
-                <!-- Przycisk uruchomienia modala -->
-                <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#customer">Dodaj nowego</button>
+
             </div>
             <div class="col-md-5" name="seller">
-                {{ form_label(form.company, 'Sprzedawca:', { 'label_attr' : {'class' : 'control-label'}}) }}
-                {{ form_widget(form.company, {'attr' : {'class' : 'form-control input-sm', 'style' : 'width : 340px ; float : right'}})}} 
+                <b class="text-muted">Nazwa sprzedawcy:</b>
+                <td> 
+                    <input class="form-control input-sm" value="{{ invoice.company.name }}" readonly="readonly"> 
+                </td>
+                <b class="text-muted">Nr NIP sprzedawcy:</b>
+                <td> 
+                    <input class="form-control input-sm" value="{{ invoice.company.nip }}" readonly="readonly"> 
+                </td>  
             </div>  
         </div>
         <hr>
         <div class="row">
             <div class="col-md-12">
+                <b> PRZED KOREKTĄ: </b>
+                <br>
                 <table class="control-label">
-                    <th width="340px" float="left">
+                    <th width="220px" float="left">
                         Nazwa produktu
                     </th>
                     <th width="70px" float="left">
                         ilość
                     </th>
-                    <th width="55px" float="left">
+                    <th width="45px" float="left">
                         JM
                     </th>
-                    <th width="160px" float="left">
+                    <th width="100px" float="left">
                         cena netto
                     </th>
-                    <th width="160px" float="left">
+                    <th width="120px" float="left">
                         wartość netto
                     </th>
                     <th width="80px" float="left">
                         VAT
                     </th>
-                    <th width="160px" float="left">
+                    <th width="120px" float="left">
                         kwota brutto
                     </th>
+                    {% for positions in invoice.positions %}
+                        <tr>
+                            <td> 
+                                <input class="form-control input-sm" value="{{ positions.productName }}" readonly="readonly"> 
+                            </td>
+
+                            <td> 
+                                <input class="form-control input-sm" value="{{ positions.quantity }}" readonly="readonly"> 
+                            </td>
+                            <td> 
+                                <input class="form-control input-sm" value="{{ positions.unitMeasure }}" readonly="readonly"> 
+                            </td>
+                            <td> 
+                                <input class="form-control input-sm" value="{{ positions.priceNet }}" readonly="readonly"> 
+                            </td>
+                            <td> 
+                                <input class="form-control input-sm" value="{{ positions.valueNet }}" readonly="readonly"> 
+                            </td>
+                            <td> 
+                                <input class="form-control input-sm" value="{{ positions.vat }}" readonly="readonly">
+                            </td>                            
+                            <td> 
+                                <input class="form-control input-sm"  value="{{ positions.valueGross }}" readonly="readonly"> 
+                            </td>                                                                     
+                        </tr>
+                        <br>
+                    {% endfor %}                                      
                 </table>       
                 <div id="form-test">
-                 {#   {{ form_widget(form.positions)}}     #}  
+                    {#   {{ form_widget(form.positions)}}     #}  
                 </div>               
             </div>     
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <b> PO KOREKCIE: </b>
+                <br>
+                <table class="control-label">
+                    <th width="220px" float="left">
+                        Nazwa produktu
+                    </th>
+                    <th width="70px" float="left">
+                        ilość
+                    </th>
+                    <th width="45px" float="left">
+                        JM
+                    </th>
+                    <th width="100px" float="left">
+                        cena netto
+                    </th>
+                    <th width="120px" float="left">
+                        wartość netto
+                    </th>
+                    <th width="80px" float="left">
+                        VAT
+                    </th>
+                    <th width="120px" float="left">
+                        kwota brutto
+                    </th>                                     
+                </table>       
+                <div id="form-test">
+                    {{ form_widget(form.positions)}}      
+                </div>               
+            </div>            
+        </div>        
+
         <hr>
         <div class="row">
             <div class="col-md-6">
@@ -97,13 +175,19 @@
                 </div> 
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-6">
+            <div class="form-group">             
+                {{ form_label(form.comments, 'Przyczyna korekty/ uwagi:', { 'label_attr': {'class': 'control-label'}}) }}
+                {{ form_widget(form.comments, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 280px ; float : right'}}) }}          
+            </div> 
+            </div>
+        </div>
 
         <input type="submit" class="btn btn-success btn-sm" value="Zapisz fakturę" />
-        <a class="btn btn-default btn-sm" href="{{ path('invoicecorrective_index') }}">Powrót do listy faktur</a>
+        <a class="btn btn-default btn-sm" href="{{ path('invoicecorrective_index') }}">Powrót do listy faktur korygujących</a>
+        <a class="btn btn-default btn-sm" href="{{ path('invoice_index') }}">Powrót do listy faktur</a>
         {{ form_end(form) }}
-
-        <!-- Modal -->
-
     </div>
 
     <script src="{{ asset('js/jquery-3.1.1.js')}}"></script>
@@ -136,22 +220,5 @@
             allow_single_deselect: true
         });
     </script>
-    
-    
-    
-    
-    
-    
-    <h1>Invoicecorrective creation</h1>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('invoicecorrective_index') }}">Back to the list</a>
-        </li>
-    </ul>
 {% endblock %}

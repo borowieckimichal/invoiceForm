@@ -22,9 +22,9 @@ class InvoiceCorrective extends Invoice
     private $id;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="invoiceCorrected", type="integer")
+     * @ORM\Column(name="invoiceCorrected", type="string", length=255, unique=true)
      */
     private $invoiceCorrected;
 

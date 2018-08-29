@@ -30,15 +30,6 @@ class InvoiceCorrectiveType extends AbstractType
                 ])->add('iban', null, [
                     'required' => false
                 ])
-                ->add('company', EntityType::class, [
-                    'class' => 'invoiceFormBundle:Company',
-                    'choice_label' => 'name',
-                ])
-                ->add('customer', EntityType::class, [
-                    'class' => 'invoiceFormBundle:Customer',
-                    'choice_label' => 'nameNip',
-                    'placeholder' => 'Wybierz nabywcę...',
-                ])
                 ->add('totalGross', 'number')
                 ->add('positions', CollectionType::class, [
                     'options' => array(

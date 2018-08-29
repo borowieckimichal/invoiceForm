@@ -38,10 +38,14 @@ class InvoiceCorrectiveController extends Controller
      * @Route("/{Id_invoice}/new", name="invoicecorrective_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, $Id_invoice)
     {
+        $em =$this->getDoctrine()->getManager();
+        $invoice = $em->getRepository('invoiceFormBundle:Invoice')->find($Id_invoice);
+        
         $invoiceCorrective = new Invoicecorrective();
-        $form = $this->createForm('invoiceFormBundle\Form\InvoiceCorrectiveType', $invoiceCorrective);
+        $form = $this->createForm('invoiceFormBundle\Form\InvoiceCorrectiveType', $invoiceCorrective->setInvoiceCorrected($invoice->getNumber())
+                ->setCompany($invoice->getCompany())->setCustomer($invoice->getCustomer()));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -55,6 +59,7 @@ class InvoiceCorrectiveController extends Controller
         return $this->render('invoicecorrective/new.html.twig', array(
             'invoiceCorrective' => $invoiceCorrective,
             'form' => $form->createView(),
+            'invoice' => $invoice,
         ));
     }
 
