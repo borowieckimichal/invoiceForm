@@ -3,13 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/michal/Workspace/invoiceForm/app/Resources/views/invoice/new.html.twig</file>
-            <file>file:/home/michal/Workspace/invoiceForm/src/invoiceFormBundle/Form/InvoiceCorrectiveType.php</file>
+            <file>file:/home/michal/Workspace/invoiceForm/src/invoiceFormBundle/Repository/InvoiceCorrectiveRepository.php</file>
             <file>file:/home/michal/Workspace/invoiceForm/app/Resources/views/invoice/show.html.twig</file>
+            <file>file:/home/michal/Workspace/invoiceForm/src/invoiceFormBundle/Repository/InvoiceRepository.php</file>
             <file>file:/home/michal/Workspace/invoiceForm/src/invoiceFormBundle/Controller/InvoiceCorrectiveController.php</file>
             <file>file:/home/michal/Workspace/invoiceForm/src/invoiceFormBundle/Entity/InvoiceCorrective.php</file>
-            <file>file:/home/michal/Workspace/invoiceForm/app/Resources/views/invoicecorrective/new.html.twig</file>
             <file>file:/home/michal/Workspace/invoiceForm/src/invoiceFormBundle/Entity/Invoice.php</file>
+            <file>file:/home/michal/Workspace/invoiceForm/app/Resources/views/invoicecorrective/index.html.twig</file>
+            <file>file:/home/michal/Workspace/invoiceForm/app/Resources/views/invoicecorrective/show.html.twig</file>
         </group>
     </open-files>
 </project-private>

@@ -1,41 +1,43 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Invoicecorrectives list</h1>
+       <div class="tab-content col-md-10">
+        <h4 class="text-muted">lista twoich faktur korygujących:</h4>
+        {% if invoiceCorrectives |length > 0 %}
+            <div id="borderedTable" class="body collapse in">
+                <table class="table table-bordered responsive-table">
+                    <thead>
+                        <tr>
+                            <th class="text-muted">Nr faktury</th>
+                            <th class="text-muted">Data wystawienia</th>
+                            <th class="text-muted">Data sprzedaży</th>
+                            <th class="text-muted">Data płatności</th>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Invoicecorrected</th>
-                <th>Comments</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for invoiceCorrective in invoiceCorrectives %}
-            <tr>
-                <td><a href="{{ path('invoicecorrective_show', { 'id': invoiceCorrective.id }) }}">{{ invoiceCorrective.id }}</a></td>
-                <td>{{ invoiceCorrective.invoiceCorrected }}</td>
-                <td>{{ invoiceCorrective.comments }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('invoicecorrective_show', { 'id': invoiceCorrective.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('invoicecorrective_edit', { 'id': invoiceCorrective.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                            <th class="text-muted">Menu</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for invoiceCorrective in invoiceCorrectives %}
+                            <tr>
+                                <td><a class="btn btn-info btn-sm" href="{{ path('invoicecorrective_show', { 'id': invoiceCorrective.id }) }}">{{ invoiceCorrective.invoiceCorrected }}</a></td>
+                                <td>{% if invoiceCorrective.issueDate %}{{ invoiceCorrective.issueDate|date('Y-m-d') }}{% endif %}</td>
+                                <td>{% if invoiceCorrective.saleDate %}{{ invoiceCorrective.saleDate|date('Y-m-d') }}{% endif %}</td>
+                                <td>{% if invoiceCorrective.dueDate %}{{ invoiceCorrective.dueDate|date('Y-m-d') }}{% endif %}</td>
 
-    <ul>
-        <li>
-            <a href="{{ path('invoicecorrective_new') }}">Create a new invoiceCorrective</a>
-        </li>
-    </ul>
+                                <td>
+                                    <a class="btn btn-danger btn-sm" href="{{ path('invoicecorrective_delete', { 'id': invoiceCorrective.id }) }}">Usuń fakturę</a>
+                                    <a class="btn btn-primary btn-sm" href="{{ path('invoicecorrective_edit', { 'id': invoiceCorrective.id }) }}">Edycja faktury</a>
+
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            {% else %}
+                <p class="text-center">brak faktur w bazie dla<p>
+                {% endif %}
+        </div>
+    </div> 
+
 {% endblock %}

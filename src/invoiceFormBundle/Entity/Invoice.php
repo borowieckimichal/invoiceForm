@@ -21,21 +21,21 @@ class Invoice {
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
      *
      * @ORM\Column(name="number", type="string", length=255, unique=true)
      */
-    private $number;
+    protected $number;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="issueDate", type="date")
      */
-    private $issueDate;
+    protected $issueDate;
 
     /**
      * @var \DateTime
@@ -49,45 +49,50 @@ class Invoice {
      *
      * @ORM\Column(name="dueDate", type="date", nullable=true)
      */
-    private $dueDate;
+    protected $dueDate;
 
     /**
      * @var string
      *
      * @ORM\Column(name="paymentCondition", type="string", length=255)
      */
-    private $paymentCondition;
+    protected $paymentCondition;
 
     /**
      * @var string
      *
      * @ORM\Column(name="iban", type="string", nullable=true)
      */
-    private $iban;
+    protected $iban;
 
     /**
      * @var int
      * 
      * @ORM\Column(name="totalGross", type="decimal", precision=10, scale=2, nullable=true)
      */
-    private $totalGross;
+    protected $totalGross;
 
     /**
      * @ORM\ManyToOne(targetEntity="Company", inversedBy="invoices")
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
      */
-    private $company;
+    protected $company;
 
     /**
      * @ORM\ManyToOne(targetEntity="Customer", inversedBy="invoices")
      * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
      */
-    private $customer;
+    protected $customer;
 
     /**
      * @ORM\OneToMany(targetEntity="Positions", mappedBy="invoice", cascade={"persist"})
      */
-    private $positions;
+    protected $positions;
+
+    /**
+     * @ORM\OneToMany(targetEntity="InvoiceCorrective", mappedBy="invoices", cascade={"persist"})
+     */
+    protected $correction;    
 
     /**
      * Get id
@@ -324,4 +329,37 @@ class Invoice {
         return $this->totalGross;
     }
 
+
+    /**
+     * Add correction
+     *
+     * @param \invoiceFormBundle\Entity\InvoiceCorrective $correction
+     * @return Invoice
+     */
+    public function addCorrection(\invoiceFormBundle\Entity\InvoiceCorrective $correction)
+    {
+        $this->correction[] = $correction;
+
+        return $this;
+    }
+
+    /**
+     * Remove correction
+     *
+     * @param \invoiceFormBundle\Entity\InvoiceCorrective $correction
+     */
+    public function removeCorrection(\invoiceFormBundle\Entity\InvoiceCorrective $correction)
+    {
+        $this->correction->removeElement($correction);
+    }
+
+    /**
+     * Get correction
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCorrection()
+    {
+        return $this->correction;
+    }
 }

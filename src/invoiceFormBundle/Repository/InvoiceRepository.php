@@ -25,5 +25,15 @@ class InvoiceRepository extends EntityRepository {
 
         return $countedInvoices;
     }
+    
+        public function getInvoiceByCorrectiveInvoiceId($id) {
+        
+        $em = $this->getEntityManager();
+        $query = $em->createQuery(
+                "SELECT p FROM invoiceFormBundle:InvoiceCorrective p WHERE p.invoices = :id ");
+        $query->setParameter('id', $id);
+        return $query->setMaxResults(1)->getResult();
+    }
+
 
 }

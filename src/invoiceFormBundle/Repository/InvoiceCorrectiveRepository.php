@@ -25,5 +25,4 @@ class InvoiceCorrectiveRepository extends EntityRepository {
 
         return $countedInvoices;
     }
-
 }

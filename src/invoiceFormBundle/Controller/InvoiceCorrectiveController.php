@@ -45,12 +45,18 @@ class InvoiceCorrectiveController extends Controller
         
         $invoiceCorrective = new Invoicecorrective();
         $form = $this->createForm('invoiceFormBundle\Form\InvoiceCorrectiveType', $invoiceCorrective->setInvoiceCorrected($invoice->getNumber())
-                ->setCompany($invoice->getCompany())->setCustomer($invoice->getCustomer()));
+                ->setCompany($invoice->getCompany())->setCustomer($invoice->getCustomer())->setInvoices($invoice));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($invoiceCorrective);
+            $invoicePositions = $invoiceCorrective->getPositions();
+            foreach ($invoicePositions as $invoicePosition) {
+                $invoicePosition->setInvoice($invoiceCorrective);
+            }
+            
+                       
             $em->flush();
 
             return $this->redirectToRoute('invoicecorrective_show', array('id' => $invoiceCorrective->getId()));
@@ -66,16 +72,20 @@ class InvoiceCorrectiveController extends Controller
     /**
      * Finds and displays a invoiceCorrective entity.
      *
-     * @Route("/{id}", name="invoicecorrective_show")
+     * @Route("/{id}", name="invoicecorrective_show", requirements={"id"=".+"})
      * @Method("GET")
      */
     public function showAction(InvoiceCorrective $invoiceCorrective)
     {
         $deleteForm = $this->createDeleteForm($invoiceCorrective);
-
+        
+        $em =$this->getDoctrine()->getManager();
+        $invoiceRepo = $em->getRepository('invoiceFormBundle:Invoice');
+        $invoice = $invoiceRepo->find($invoiceCorrective->getInvoices());
         return $this->render('invoicecorrective/show.html.twig', array(
             'invoiceCorrective' => $invoiceCorrective,
             'delete_form' => $deleteForm->createView(),
+            'invoice' => $invoice,
         ));
     }
 
